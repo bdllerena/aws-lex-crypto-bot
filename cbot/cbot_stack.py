@@ -22,7 +22,7 @@ class CbotStack(Stack):
             self, "HandlerDependencies", code=_lambda.Code.from_asset(output_dir)
         )
 
-    def create_handler(
+    def create_lambda(
         self,
         layers: List[_lambda.LayerVersion],
     ):
@@ -56,6 +56,6 @@ class CbotStack(Stack):
             requirements_path=requirements_path, output_dir=layer_dir
         )
 
-        self.create_handler(
+        self.create_lambda(
             layers=[dependenciesLayer],
         )

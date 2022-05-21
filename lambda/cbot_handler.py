@@ -57,8 +57,8 @@ def search_crypto(intent_request):
     session_attributes = get_session_attributes(intent_request)
     slots = get_slots(intent_request)
     crypto = get_slot(intent_request, "crypto")
-    myParameter = ssm.get_parameter(Name="/dev/crypto-bot/COIN_MARKETCAP_API_KEY")
-    cmc = coinmarketcapapi.CoinMarketCapAPI(myParameter["Parameter"]["Value"])
+    cmc_api_key = ssm.get_parameter(Name="/dev/crypto-bot/COIN_MARKETCAP_API_KEY")
+    cmc = coinmarketcapapi.CoinMarketCapAPI(cmc_api_key["Parameter"]["Value"])
     r = cmc.cryptocurrency_info(symbol=crypto.upper())
     text = repr(r.data[crypto]["description"])
     message = {"contentType": "PlainText", "content": text}
