@@ -1,8 +1,4 @@
-import json
-import random
-import decimal
 import coinmarketcapapi
-import requests
 import boto3
 
 ssm = boto3.client("ssm")
@@ -57,7 +53,7 @@ def close(intent_request, session_attributes, fulfillment_state, message):
     }
 
 
-def SearchCrypto(intent_request):
+def search_crypto(intent_request):
     session_attributes = get_session_attributes(intent_request)
     slots = get_slots(intent_request)
     crypto = get_slot(intent_request, "crypto")
@@ -73,7 +69,7 @@ def SearchCrypto(intent_request):
 def dispatch(intent_request):
     intent_name = intent_request["sessionState"]["intent"]["name"]
     response = None
-    return SearchCrypto(intent_request)
+    return search_crypto(intent_request)
 
     raise Exception('Intent with name ' + intent_name + ' not supported')
 

@@ -5,8 +5,7 @@ from typing import List
 from aws_cdk import (
     Duration,
     Stack,
-    aws_ssm as ssm,
-    aws_iam as iam,
+    aws_ssm as _ssm,
     aws_lambda as _lambda,
 )
 
@@ -38,7 +37,7 @@ class CbotStack(Stack):
             function_name="cb-search-crypto-dev",
         )
 
-        coinmarket_api_param = ssm.StringParameter.from_string_parameter_attributes(
+        coinmarket_api_param = _ssm.StringParameter.from_string_parameter_attributes(
             self, "Parameter", parameter_name="/dev/crypto-bot/COIN_MARKETCAP_API_KEY"
         )
         coinmarket_api_param.grant_read(crypto_search_lambda)
